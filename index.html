@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Airline Staff Portal</title>
+
+    <!-- PWA Meta Tags -->
+    <meta name="theme-color" content="#0063c6">
+    <meta name="description" content="Essential tools for airline staff - flight tracking, airport info, and quick links">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="AA Staff Portal">
+    <meta name="application-name" content="AA Staff Portal">
+
+    <!-- Base64 Icons -->
+    <link rel="icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48cGF0aCBmaWxsPSIjMDA2M2M2IiBkPSJNNTAsMTBMOTAsOTBIMTBMNTAsMTB6Ii8+PHBhdGggZmlsbD0id2hpdGUiIGQ9Ik01MCw3NWwtMjUtMTBoNTBMNTAsNzV6Ii8+PHBhdGggZmlsbD0id2hpdGUiIGQ9Ik01MCwyNWwxNSw0NUg2NWwtMTUtNDV6Ci8+PC9zdmc+">
+    <link rel="apple-touch-icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIj48cmVjdCB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIgcng9IjEwMCIgZmlsbD0iIzAwNjNjNiIvPjxwYXRoIGZpbGw9IndoaXRlIiBkPSJNMjU2LDEwMEwzOTAsMzgwSDEyMkwyNTYsMTAweiIvPjxwYXRoIGZpbGw9IiNlNDAwNDYiIGQ9Ik0yNTYsMzIwbC0zNS0xOGg3MEwyNTYsMzIweiIvPjxwYXRoIGZpbGw9IiNlNDAwNDYiIGQ9Ik0yNTYsMTUwbDIwLDcwaDIwbC0yMC03MHoiLz48L3N2Zz4=">
+
+    <!-- Inline Manifest (properly escaped JSON) -->
+    <link rel="manifest" id="manifest-placeholder">
+
+    <!-- External CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header Row with Logo and Theme Controls -->
+        <div class="header-row">
+            <div class="logo-container">
+                <div class="tools-menu-btn" title="Other Tools">
+                    <i class="fas fa-th"></i>
+                </div>
+                <i class="logo-icon fas fa-plane"></i>
+                <div class="logo-text">Airline Staff Portal</div>
+            </div>
+            <div class="header-controls">
+                <!-- Flight Tracking - Header Tool -->
+                <div class="flight-tracker-header">
+                    <select id="airlineSelectHeader" class="airline-select-header">
+                        <option value="AAL" title="American Airlines">AA</option>
+                        <option value="AMX" title="AeroMexico">AM</option>
+                        <option value="ACA" title="Air Canada">AC</option>
+                        <option value="AFR" title="Air France">AF</option>
+                        <option value="ASA" title="Alaska Airlines">AS</option>
+                        <option value="AVA" title="Avianca">AV</option>
+                        <option value="BAW" title="British Airways">BA</option>
+                        <option value="DAL" title="Delta">DL</option>
+                        <option value="UAE" title="Emirates">EK</option>
+                        <option value="FFT" title="Frontier Airlines">F9</option>
+                        <option value="JAL" title="Japan Airlines">JL</option>
+                        <option value="JBU" title="jetBlue">B6</option>
+                        <option value="KAL" title="Korean Air">KE</option>
+                        <option value="DLH" title="Lufthansa">LH</option>
+                        <option value="QFA" title="QANTAS">QF</option>
+                        <option value="QTR" title="Qatar Airways">QR</option>
+                        <option value="NKS" title="Spirit Airlines">NK</option>
+                        <option value="SCX" title="Sun Country Airlines">SY</option>
+                        <option value="UAL" title="United Airlines">UA</option>
+                        <option value="VIV" title="Viva Aerobus">VB</option>
+                        <option value="VOI" title="Volaris">Y4</option>
+                    </select>
+                    <input type="text" id="flightNumberHeader" placeholder="1234" class="flight-input-header" maxlength="4">
+                    <button onclick="trackFlightHeader()" class="track-btn-header" title="Track Flight on FlightAware">
+                        <i class="fas fa-plane-departure"></i>
+                    </button>
+                </div>
+                
+
+                
+                <button class="quick-links-header-btn" onclick="toggleLinksDropdown()" id="linksDropdownBtn">
+                    <i class="fas fa-link"></i>
+                    <i class="fas fa-chevron-down" id="linksDropdownIcon"></i>
+                </button>
+                
+                <div class="theme-selector">
+                    <div class="theme-btn light-theme" title="Light Theme">
+                        <i class="fas fa-sun"></i>
+                    </div>
+                    <div class="theme-btn dark-theme" title="Dark Theme">
+                        <i class="fas fa-moon"></i>
+                    </div>
+                    <div class="theme-btn aa-theme" title="American Airlines Theme">
+                        <i class="fas fa-plane"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Links Dropdown positioned relative to header button -->
+        <div class="dropdown-menu-header" id="linksDropdownMenu">
+            <!-- AA Core -->
+            <div class="dropdown-group">
+                <div class="group-header">
+                    <i class="fas fa-plane"></i>
+                    <span>AA Core</span>
+                </div>
+                <div class="group-links">
+                    <a href="https://jetnet.aa.com" target="_blank" class="dropdown-link jetnet">
+                        <div class="link-icon">J</div>
+                        <span>Jetnet</span>
+                    </a>
+                    <a href="https://webmail.mte.aa.com/mail/" target="_blank" class="dropdown-link email">
+                        <div class="link-icon"><i class="fas fa-envelope"></i></div>
+                        <span>AA Email</span>
+                    </a>
+                    <a href="https://teams.microsoft.com/v2/" target="_blank" class="dropdown-link teams">
+                        <div class="link-icon"><i class="fab fa-microsoft"></i></div>
+                        <span>Teams</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- HCC Tools -->
+            <div class="dropdown-group">
+                <div class="group-header">
+                    <i class="fas fa-cogs"></i>
+                    <span>HCC Tools</span>
+                </div>
+                <div class="group-links">
+                    <a href="https://simba.aa.com/gateAssignment/home" target="_blank" class="dropdown-link simba">
+                        <div class="link-icon"><i class="fas fa-desktop"></i></div>
+                        <span>SIMBA</span>
+                    </a>
+                    <a href="https://sam.dfwairport.com" target="_blank" class="dropdown-link sam">
+                        <div class="link-icon"><i class="fas fa-shield-alt"></i></div>
+                        <span>SAM Safegate</span>
+                    </a>
+                    <a href="https://gfm.aerobahn.com/" target="_blank" class="dropdown-link aerobahn">
+                        <div class="link-icon"><i class="fas fa-road"></i></div>
+                        <span>Aerobahn</span>
+                    </a>
+                    <a href="https://diversions.lka.aa.com/DiversionTracker/#/" target="_blank" class="dropdown-link diversion">
+                        <div class="link-icon"><i class="fas fa-route"></i></div>
+                        <span>Diversion Tracker</span>
+                    </a>
+                    <a href="https://opsadvisor.lka.aa.com/OpsAdvisor/" target="_blank" class="dropdown-link ops">
+                        <div class="link-icon"><i class="fas fa-clipboard-list"></i></div>
+                        <span>Ops Advisor</span>
+                    </a>
+                    <a href="https://lka.aa.com/TarmacMonitor/#/TarmacMonitor" target="_blank" class="dropdown-link tarmac">
+                        <div class="link-icon"><i class="fas fa-stopwatch"></i></div>
+                        <span>Tarmac Monitor</span>
+                    </a>
+                    <a href="https://falcon.app.bags.aa.com" target="_blank" class="dropdown-link falcon">
+                        <div class="link-icon"><i class="fas fa-suitcase"></i></div>
+                        <span>Falcon</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Government -->
+            <div class="dropdown-group">
+                <div class="group-header">
+                    <i class="fas fa-flag-usa"></i>
+                    <span>Government</span>
+                </div>
+                <div class="group-links">
+                    <a href="https://nasstatus.faa.gov/" target="_blank" class="dropdown-link nas">
+                        <div class="link-icon"><i class="fas fa-satellite-dish"></i></div>
+                        <span>NAS Status</span>
+                    </a>
+                    <a href="https://www.fly.faa.gov/adv/advAdvisoryForm.jsp" target="_blank" class="dropdown-link atcscc">
+                        <div class="link-icon"><i class="fas fa-broadcast-tower"></i></div>
+                        <span>ATCSCC Advisories</span>
+                    </a>
+                    <a href="https://www.fly.faa.gov/aadc/" target="_blank" class="dropdown-link aadc">
+                        <div class="link-icon"><i class="fas fa-chart-line"></i></div>
+                        <span>Airport Arrival Demand</span>
+                    </a>
+                    <a href="https://notams.aim.faa.gov/notamSearch/disclaimer.html" target="_blank" class="dropdown-link notams">
+                        <div class="link-icon"><i class="fas fa-exclamation-triangle"></i></div>
+                        <span>NOTAMs</span>
+                    </a>
+                    <a href="https://www.fly.faa.gov/rrtreader/jsp/index.jsp" target="_blank" class="dropdown-link reroutes">
+                        <div class="link-icon"><i class="fas fa-map-signs"></i></div>
+                        <span>Current Reroutes</span>
+                    </a>
+                    <a href="https://www.fly.faa.gov/current_restrictions/jsp/index.jsp" target="_blank" class="dropdown-link restrictions">
+                        <div class="link-icon"><i class="fas fa-ban"></i></div>
+                        <span>Current Restrictions</span>
+                    </a>
+                    <a href="https://rvr.data.faa.gov/cgi-bin/rvr-status.pl" target="_blank" class="dropdown-link rvr">
+                        <div class="link-icon"><i class="fas fa-eye"></i></div>
+                        <span>RVR Status</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Weather -->
+            <div class="dropdown-group">
+                <div class="group-header">
+                    <i class="fas fa-cloud-sun"></i>
+                    <span>Weather</span>
+                </div>
+                <div class="group-links">
+                    <a href="https://aviationweather.gov/gfa/#obs" target="_blank" class="dropdown-link weather">
+                        <div class="link-icon"><i class="fas fa-cloud-sun"></i></div>
+                        <span>Aviation Weather</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Utilities -->
+            <div class="dropdown-group">
+                <div class="group-header">
+                    <i class="fas fa-tools"></i>
+                    <span>Utilities</span>
+                </div>
+                <div class="group-links">
+                    <a href="https://flightflux.github.io/flight/" target="_blank" class="dropdown-link flightflux">
+                        <div class="link-icon"><i class="fas fa-plane"></i></div>
+                        <span>FlightFlux</span>
+                    </a>
+                    <button onclick="openCustomLinkModal()" class="dropdown-link add-link">
+                        <div class="link-icon"><i class="fas fa-plus"></i></div>
+                        <span>Add Custom Link</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <!-- Top Row: Hub Status and Live Clocks -->
+            <div class="top-row">
+                <!-- AA Hubs Status -->
+                <div class="hub-status-card">
+                    <div class="card-header">
+                        <h2><i class="fas fa-building"></i> AA Hubs Status</h2>
+                    </div>
+                    <div class="hub-list">
+                        <div class="hub-item" data-hub="KDFW" data-airport="DFW">
+                            <div class="hub-info">
+                                <div class="hub-code">DFW</div>
+                                <div class="hub-name">Dallas/Fort Worth</div>
+                            </div>
+                            <div class="status-dot operational"></div>
+                        </div>
+                        <div class="hub-item" data-hub="KLAX" data-airport="LAX">
+                            <div class="hub-info">
+                                <div class="hub-code">LAX</div>
+                                <div class="hub-name">Los Angeles</div>
+                            </div>
+                            <div class="status-dot operational"></div>
+                        </div>
+                        <div class="hub-item" data-hub="KORD" data-airport="ORD">
+                            <div class="hub-info">
+                                <div class="hub-code">ORD</div>
+                                <div class="hub-name">Chicago O'Hare</div>
+                            </div>
+                            <div class="status-dot operational"></div>
+                        </div>
+                        <div class="hub-item" data-hub="KMIA" data-airport="MIA">
+                            <div class="hub-info">
+                                <div class="hub-code">MIA</div>
+                                <div class="hub-name">Miami</div>
+                            </div>
+                            <div class="status-dot operational"></div>
+                        </div>
+                        <div class="hub-item" data-hub="KJFK" data-airport="JFK">
+                            <div class="hub-info">
+                                <div class="hub-code">JFK</div>
+                                <div class="hub-name">New York JFK</div>
+                            </div>
+                            <div class="status-dot operational"></div>
+                        </div>
+                        <div class="hub-item" data-hub="KPHX" data-airport="PHX">
+                            <div class="hub-info">
+                                <div class="hub-code">PHX</div>
+                                <div class="hub-name">Phoenix</div>
+                            </div>
+                            <div class="status-dot delayed"></div>
+                        </div>
+                        <div class="hub-item" data-hub="KCLT" data-airport="CLT">
+                            <div class="hub-info">
+                                <div class="hub-code">CLT</div>
+                                <div class="hub-name">Charlotte</div>
+                            </div>
+                            <div class="status-dot operational"></div>
+                        </div>
+                    </div>
+                    
+                    <!-- Weather Tooltip -->
+                    <div class="weather-tooltip" id="weatherTooltip">
+                        <div class="weather-content">
+                            <div class="weather-header">
+                                <strong id="weatherAirport"></strong>
+                                <span id="weatherTime"></span>
+                            </div>
+                            <div class="weather-details">
+                                <div class="weather-row">
+                                    <span class="weather-label">Conditions:</span>
+                                    <span id="weatherConditions">Loading...</span>
+                                </div>
+                                <div class="weather-row">
+                                    <span class="weather-label">Temperature:</span>
+                                    <span id="weatherTemp">--°F</span>
+                                </div>
+                                <div class="weather-row">
+                                    <span class="weather-label">Wind:</span>
+                                    <span id="weatherWind">--</span>
+                                </div>
+                                <div class="weather-row">
+                                    <span class="weather-label">Visibility:</span>
+                                    <span id="weatherVisibility">--</span>
+                                </div>
+                                <div class="weather-row">
+                                    <span class="weather-label">Altimeter:</span>
+                                    <span id="weatherAltimeter">--</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Live Clocks -->
+                <div class="live-clocks-card">
+                    <div class="card-header">
+                        <h2><i class="fas fa-clock"></i> Live Clocks</h2>
+                    </div>
+                    <div class="clocks-content">
+                        <div class="clock-item">
+                            <div class="clock-label">LOCAL (CDT)</div>
+                            <div class="clock-time" id="localTime">09:43 AM</div>
+                            <div class="clock-date" id="localDate">Sunday, June 29</div>
+                        </div>
+                        <div class="clock-item">
+                            <div class="clock-label">UTC</div>
+                            <div class="clock-time" id="utcTime">02:43 PM</div>
+                            <div class="clock-date" id="utcDate">Sunday, June 29</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <!-- Aviation Tools Link -->
+            <div class="aviation-tools-link">
+                <a href="aviation-tools/index.html" class="tools-link-card">
+                    <div class="tools-link-header">
+                        <i class="fas fa-calculator"></i>
+                        <h2>Aviation Tools</h2>
+                    </div>
+                    <div class="tools-link-description">
+                        Distance, fuel, time calculators and weight & balance tools
+                    </div>
+                    <div class="tools-link-arrow">
+                        <i class="fas fa-arrow-right"></i>
+                    </div>
+                </a>
+            </div>
+
+            <!-- Panel Container -->
+            <div class="panels-container" id="panelsContainer">
+                <!-- Flight Tracking Panel -->
+                <div class="panel" id="flight-panel">
+                    <div class="panel-header">
+                        <h2><i class="fas fa-plane-departure"></i> Flight Tracking</h2>
+                        <button class="close-btn" onclick="hidePanel()">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                    <div class="panel-content">
+                        <div class="search-container">
+                            <input type="text" id="flightInput" placeholder="Enter flight number (e.g., AA123)" maxlength="10">
+                            <button onclick="handleFlightTracking()" class="search-btn">
+                                <i class="fas fa-search"></i>
+                                Track Flight
+                            </button>
+                        </div>
+                        <div id="flightResults" class="results-container"></div>
+                    </div>
+                </div>
+
+                <!-- Airport Info Panel -->
+                <div class="panel" id="airport-panel">
+                    <div class="panel-header">
+                        <h2><i class="fas fa-map-marker-alt"></i> Airport Information</h2>
+                        <button class="close-btn" onclick="hidePanel()">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                    <div class="panel-content">
+                        <div class="search-container">
+                            <input type="text" id="airportInput" placeholder="Enter airport code (e.g., LAX, JFK)" maxlength="4">
+                            <button onclick="handleAirportInfo()" class="search-btn">
+                                <i class="fas fa-search"></i>
+                                Get Info
+                            </button>
+                        </div>
+                        <div id="airportResults" class="results-container"></div>
+                    </div>
+                </div>
+
+                <!-- Multi-Search Panel -->
+                <div class="panel" id="multi-search-panel">
+                    <div class="panel-header">
+                        <h2><i class="fas fa-search"></i> Multi-Search</h2>
+                        <button class="close-btn" onclick="hidePanel()">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                    <div class="panel-content">
+                        <div class="search-container">
+                            <input type="text" id="multiSearchInput" placeholder="Search flight, airport, or route...">
+                            <button onclick="handleMultiSearch()" class="search-btn">
+                                <i class="fas fa-search"></i>
+                                Search All
+                            </button>
+                        </div>
+                        <div id="multiSearchResults" class="results-container"></div>
+                    </div>
+                </div>
+
+                <!-- Calculator Panel -->
+                <div class="panel" id="calculator-panel">
+                    <div class="panel-header">
+                        <h2><i class="fas fa-calculator"></i> Aviation Calculators</h2>
+                        <button class="close-btn" onclick="hidePanel()">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                    <div class="panel-content">
+                        <div class="calculator-tabs">
+                            <button class="calc-tab active" data-calc="distance">
+                                <i class="fas fa-ruler"></i>
+                                Distance
+                            </button>
+                            <button class="calc-tab" data-calc="fuel">
+                                <i class="fas fa-gas-pump"></i>
+                                Fuel
+                            </button>
+                            <button class="calc-tab" data-calc="time">
+                                <i class="fas fa-clock"></i>
+                                Time
+                            </button>
+                        </div>
+
+                        <!-- Distance Calculator -->
+                        <div class="calc-content active" id="distance-calc">
+                            <div class="calc-inputs">
+                                <div class="input-group">
+                                    <label>From Airport</label>
+                                    <input type="text" id="fromAirport" placeholder="e.g., LAX" maxlength="4">
+                                </div>
+                                <div class="input-group">
+                                    <label>To Airport</label>
+                                    <input type="text" id="toAirport" placeholder="e.g., JFK" maxlength="4">
+                                </div>
+                                <button onclick="calculateDistance()" class="calc-btn">
+                                    <i class="fas fa-calculator"></i>
+                                    Calculate Distance
+                                </button>
+                            </div>
+                            <div id="distanceResult" class="calc-result"></div>
+                        </div>
+
+                        <!-- Fuel Calculator -->
+                        <div class="calc-content" id="fuel-calc">
+                            <div class="calc-inputs">
+                                <div class="input-group">
+                                    <label>Distance (nautical miles)</label>
+                                    <input type="number" id="fuelDistance" placeholder="e.g., 2500">
+                                </div>
+                                <div class="input-group">
+                                    <label>Aircraft Type</label>
+                                    <select id="aircraftType">
+                                        <option value="737">Boeing 737</option>
+                                        <option value="777">Boeing 777</option>
+                                        <option value="A320">Airbus A320</option>
+                                        <option value="A330">Airbus A330</option>
+                                    </select>
+                                </div>
+                                <button onclick="calculateFuel()" class="calc-btn">
+                                    <i class="fas fa-calculator"></i>
+                                    Calculate Fuel
+                                </button>
+                            </div>
+                            <div id="fuelResult" class="calc-result"></div>
+                        </div>
+
+                        <!-- Time Calculator -->
+                        <div class="calc-content" id="time-calc">
+                            <div class="calc-inputs">
+                                <div class="input-group">
+                                    <label>Distance (nautical miles)</label>
+                                    <input type="number" id="timeDistance" placeholder="e.g., 2500">
+                                </div>
+                                <div class="input-group">
+                                    <label>Average Speed (knots)</label>
+                                    <input type="number" id="averageSpeed" placeholder="e.g., 450" value="450">
+                                </div>
+                                <button onclick="calculateTime()" class="calc-btn">
+                                    <i class="fas fa-calculator"></i>
+                                    Calculate Time
+                                </button>
+                            </div>
+                            <div id="timeResult" class="calc-result"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </main>
+
+        <!-- Tools Menu Modal -->
+        <div class="modal-overlay" id="toolsMenuModal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3><i class="fas fa-th"></i> Other Tools</h3>
+                    <button class="modal-close" onclick="closeToolsMenu()">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="tools-grid">
+                        <div class="tool-item" onclick="navigateToTool('screen-testing')">
+                            <i class="fas fa-desktop"></i>
+                            <span>Screen Testing</span>
+                        </div>
+                        <div class="tool-item coming-soon">
+                            <i class="fas fa-code"></i>
+                            <span>Code Formatter</span>
+                        </div>
+                        <div class="tool-item coming-soon">
+                            <i class="fas fa-palette"></i>
+                            <span>Color Palette</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Custom Link Modal -->
+        <div class="modal-overlay" id="customLinkModal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3><i class="fas fa-link"></i> Add Quick Link</h3>
+                    <button class="modal-close" onclick="closeCustomLinkModal()">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="input-group">
+                        <label>Link Name</label>
+                        <input type="text" id="linkName" placeholder="e.g., AA Hub">
+                    </div>
+                    <div class="input-group">
+                        <label>URL</label>
+                        <input type="url" id="linkUrl" placeholder="https://example.com">
+                    </div>
+                    <div class="input-group">
+                        <label>Icon (Font Awesome class)</label>
+                        <input type="text" id="linkIcon" placeholder="e.g., fas fa-plane" value="fas fa-link">
+                    </div>
+                    <div class="modal-actions">
+                        <button onclick="saveCustomLink()" class="save-btn">
+                            <i class="fas fa-save"></i>
+                            Save Link
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Notification Container -->
+        <div id="notificationContainer" class="notification-container"></div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

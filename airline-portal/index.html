@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Airline Staff Portal</title>
+
+    <!-- PWA Meta Tags -->
+    <meta name="theme-color" content="#0063c6">
+    <meta name="description" content="Essential tools for airline staff - flight tracking, airport info, and quick links">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="AA Staff Portal">
+    <meta name="application-name" content="AA Staff Portal">
+
+    <!-- Base64 Icons -->
+    <link rel="icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48cGF0aCBmaWxsPSIjMDA2M2M2IiBkPSJNNTAsMTBMOTAsOTBIMTBMNTAsMTB6Ii8+PHBhdGggZmlsbD0id2hpdGUiIGQ9Ik01MCw3NWwtMjUtMTBoNTBMNTAsNzV6Ii8+PHBhdGggZmlsbD0id2hpdGUiIGQ9Ik01MCwyNWwxNSw0NUg2NWwtMTUtNDV6Ci8+PC9zdmc+">
+    <link rel="apple-touch-icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIj48cmVjdCB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIgcng9IjEwMCIgZmlsbD0iIzAwNjNjNiIvPjxwYXRoIGZpbGw9IndoaXRlIiBkPSJNMjU2LDEwMEwzOTAsMzgwSDEyMkwyNTYsMTAweiIvPjxwYXRoIGZpbGw9IiNlNDAwNDYiIGQ9Ik0yNTYsMzIwbC0zNS0xOGg3MEwyNTYsMzIweiIvPjxwYXRoIGZpbGw9IiNlNDAwNDYiIGQ9Ik0yNTYsMTUwbDIwLDcwaDIwbC0yMC03MHoiLz48L3N2Zz4=">
+
+    <!-- Inline Manifest (properly escaped JSON) -->
+    <link rel="manifest" id="manifest-placeholder">
+
+    <!-- External CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header Row with Logo and Theme Controls -->
+        <div class="header-row">
+            <div class="logo-container">
+                <a href="../" class="back-link">
+                    <i class="fas fa-arrow-left"></i>
+                </a>
+                <i class="logo-icon fas fa-plane"></i>
+                <div class="logo-text">Airline Staff Portal</div>
+            </div>
+            <div class="toggle-container">
+                <div class="theme-selector">
+                    <div class="theme-btn light-theme" title="Light Theme">
+                        <i class="fas fa-sun"></i>
+                    </div>
+                    <div class="theme-btn dark-theme" title="Dark Theme">
+                        <i class="fas fa-moon"></i>
+                    </div>
+                    <div class="theme-btn aa-theme" title="American Airlines Theme">
+                        <i class="fas fa-plane"></i>
+                    </div>
+                </div>
+                <div class="toggle-group">
+                    <span class="toggle-label">Dark</span>
+                    <label class="toggle-switch theme-toggle">
+                        <input type="checkbox" id="dark-mode-toggle">
+                        <span class="toggle-slider">
+                            <i class="light-icon fas fa-plane-departure"></i>
+                            <i class="dark-icon fas fa-plane-arrival"></i>
+                        </span>
+                    </label>
+                </div>
+                <div class="toggle-group">
+                    <span class="toggle-label">Compact</span>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="small-screen-toggle">
+                        <span class="toggle-slider"></span>
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <!-- Clock and Time Zone Information -->
+        <div class="time-display">
+            <div class="time-zone-container">
+                <div class="time-block">
+                    <div class="time-label">Local Time</div>
+                    <div class="time-value" id="local-time">--:--</div>
+                    <div class="date-value" id="local-date">---</div>
+                </div>
+                <div class="time-block">
+                    <div class="time-label">UTC/GMT</div>
+                    <div class="time-value" id="utc-time">--:--</div>
+                    <div class="date-value" id="utc-date">---</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mini Cards Row -->
+        <div class="mini-cards-row">
+            <div class="mini-card">
+                <div class="mini-icon">
+                    <i class="fas fa-plane-departure"></i>
+                </div>
+                <div class="mini-title">Departures</div>
+                <div class="mini-value">12</div>
+            </div>
+            <div class="mini-card">
+                <div class="mini-icon">
+                    <i class="fas fa-plane-arrival"></i>
+                </div>
+                <div class="mini-title">Arrivals</div>
+                <div class="mini-value">8</div>
+            </div>
+            <div class="mini-card">
+                <div class="mini-icon">
+                    <i class="fas fa-exclamation-triangle"></i>
+                </div>
+                <div class="mini-title">Delays</div>
+                <div class="mini-value">3</div>
+            </div>
+            <div class="mini-card">
+                <div class="mini-icon">
+                    <i class="fas fa-cloud-rain"></i>
+                </div>
+                <div class="mini-title">Weather</div>
+                <div class="mini-value">Fair</div>
+            </div>
+        </div>
+
+        <!-- Flight Tracker Card -->
+        <div class="card" id="flight-tracker-card">
+            <div class="card-header">
+                <h2 class="card-title">
+                    <i class="fas fa-search"></i>
+                    Flight Tracker
+                </h2>
+            </div>
+            <form id="flight-tracker-form">
+                <div class="form-group">
+                    <label for="flight-number">Flight Number:</label>
+                    <input type="text" id="flight-number" placeholder="AA1234" maxlength="8" required>
+                </div>
+                <button type="submit">Track Flight</button>
+            </form>
+            <div id="flight-status" class="flight-status"></div>
+        </div>
+
+        <!-- Multi-Search Card -->
+        <div class="card">
+            <div class="card-header">
+                <h2 class="card-title">
+                    <i class="fas fa-search-plus"></i>
+                    Multi-Search
+                </h2>
+            </div>
+            <form id="multi-search-form">
+                <div class="form-group">
+                    <label for="search-query">Search Query:</label>
+                    <input type="text" id="search-query" placeholder="Flight, Airport, Route..." required>
+                </div>
+                <button type="submit">Search</button>
+            </form>
+        </div>
+
+        <!-- Airport Information Card -->
+        <div class="card">
+            <div class="card-header">
+                <h2 class="card-title">
+                    <i class="fas fa-map-marker-alt"></i>
+                    Airport Information
+                </h2>
+            </div>
+            <form id="airport-info-form">
+                <div class="form-group">
+                    <label for="airport-code">Airport Code:</label>
+                    <input type="text" id="airport-code" placeholder="DFW" maxlength="3" required>
+                </div>
+                <button type="submit">Get Info</button>
+            </form>
+            <div id="airport-info" class="airport-info"></div>
+        </div>
+
+        <!-- Quick Links Card -->
+        <div class="card">
+            <div class="card-header">
+                <h2 class="card-title">
+                    <i class="fas fa-link"></i>
+                    Quick Links
+                    <button class="add-link-btn" id="add-link-btn" title="Add Custom Link">
+                        <i class="fas fa-plus"></i>
+                    </button>
+                </h2>
+            </div>
+            <div class="links-container" id="links-container">
+                <div class="link-item" data-url="https://hub.aa.com">
+                    <i class="fas fa-home"></i>
+                    <span>AA Hub</span>
+                </div>
+                <div class="link-item" data-url="https://jetnet.aa.com">
+                    <i class="fas fa-network-wired"></i>
+                    <span>Jetnet</span>
+                </div>
+                <div class="link-item" data-url="https://crew.aa.com">
+                    <i class="fas fa-users"></i>
+                    <span>Crew</span>
+                </div>
+                <div class="link-item" data-url="https://sabre.com">
+                    <i class="fas fa-desktop"></i>
+                    <span>Sabre</span>
+                </div>
+                <div class="link-item" data-url="https://weather.gov">
+                    <i class="fas fa-cloud-sun"></i>
+                    <span>Weather</span>
+                </div>
+                <div class="link-item" data-url="https://faa.gov">
+                    <i class="fas fa-plane"></i>
+                    <span>FAA</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Aviation Calculator Suite -->
+        <div class="card">
+            <div class="card-header">
+                <h2 class="card-title">
+                    <i class="fas fa-calculator"></i>
+                    Aviation Calculators
+                </h2>
+            </div>
+            <div class="calculator-tabs">
+                <button class="calculator-tab active" data-calculator="distance">Distance</button>
+                <button class="calculator-tab" data-calculator="fuel">Fuel</button>
+                <button class="calculator-tab" data-calculator="time">Time</button>
+            </div>
+            
+            <!-- Distance Calculator -->
+            <div class="calculator-content active" id="distance-calculator">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="origin-airport-dist">Origin:</label>
+                        <select id="origin-airport-dist">
+                            <option value="">Select Airport</option>
+                            <option value="DFW">DFW - Dallas/Fort Worth</option>
+                            <option value="JFK">JFK - John F. Kennedy</option>
+                            <option value="LAX">LAX - Los Angeles</option>
+                            <option value="ORD">ORD - O'Hare</option>
+                            <option value="MIA">MIA - Miami</option>
+                            <option value="LHR">LHR - London Heathrow</option>
+                            <option value="CDG">CDG - Charles de Gaulle</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="dest-airport-dist">Destination:</label>
+                        <select id="dest-airport-dist">
+                            <option value="">Select Airport</option>
+                            <option value="DFW">DFW - Dallas/Fort Worth</option>
+                            <option value="JFK">JFK - John F. Kennedy</option>
+                            <option value="LAX">LAX - Los Angeles</option>
+                            <option value="ORD">ORD - O'Hare</option>
+                            <option value="MIA">MIA - Miami</option>
+                            <option value="LHR">LHR - London Heathrow</option>
+                            <option value="CDG">CDG - Charles de Gaulle</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="result-display">
+                    <div class="result-label">Distance:</div>
+                    <div class="result-value" id="distance-result">Select airports</div>
+                </div>
+                <div class="result-display">
+                    <div class="result-label">Est. Flight Time:</div>
+                    <div class="result-value" id="distance-time">--</div>
+                </div>
+            </div>
+            
+            <!-- Fuel Calculator -->
+            <div class="calculator-content" id="fuel-calculator">
+                <div class="form-group">
+                    <label for="aircraft-type">Aircraft Type:</label>
+                    <select id="aircraft-type">
+                        <option value="">Select Aircraft</option>
+                        <option value="737">Boeing 737</option>
+                        <option value="777">Boeing 777</option>
+                        <option value="787">Boeing 787</option>
+                        <option value="320">Airbus A320</option>
+                        <option value="330">Airbus A330</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="flight-distance">Distance (NM):</label>
+                    <input type="number" id="flight-distance" placeholder="0" min="0">
+                </div>
+                <div class="result-display">
+                    <div class="result-label">Est. Fuel Needed:</div>
+                    <div class="result-value" id="fuel-result">Enter details</div>
+                </div>
+            </div>
+            
+            <!-- Time Calculator -->
+            <div class="calculator-content" id="time-calculator">
+                <div class="form-group">
+                    <label for="departure-time">Departure Time:</label>
+                    <input type="time" id="departure-time">
+                </div>
+                <div class="form-group">
+                    <label for="flight-duration">Flight Duration (hours):</label>
+                    <input type="number" id="flight-duration" placeholder="0" min="0" step="0.1">
+                </div>
+                <div class="result-display">
+                    <div class="result-label">Arrival Time:</div>
+                    <div class="result-value" id="time-result">Enter details</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Notification element -->
+        <div id="notification" class="notification"></div>
+
+        <!-- Panel buttons -->
+        <div class="panel-buttons">
+            <button class="panel-btn" data-panel="notifications-panel" title="Notifications">
+                <i class="fas fa-bell"></i>
+            </button>
+            <button class="panel-btn" data-panel="settings-panel" title="Settings">
+                <i class="fas fa-cog"></i>
+            </button>
+            <button id="install-pwa" class="panel-btn" title="Install App" style="display: none;">
+                <i class="fas fa-download"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- Notifications Panel -->
+    <div id="notifications-panel" class="panel">
+        <div class="panel-header">
+            <h3>Notifications</h3>
+            <button class="close-panel">&times;</button>
+        </div>
+        <div class="panel-content">
+            <div class="notification-item">
+                <div class="notification-icon">
+                    <i class="fas fa-plane"></i>
+                </div>
+                <div class="notification-content">
+                    <div class="notification-title">Flight AA1234 Delayed</div>
+                    <div class="notification-text">Departure delayed by 30 minutes due to weather</div>
+                    <div class="notification-time">5 minutes ago</div>
+                </div>
+            </div>
+            <div class="notification-item">
+                <div class="notification-icon">
+                    <i class="fas fa-cloud-rain"></i>
+                </div>
+                <div class="notification-content">
+                    <div class="notification-title">Weather Alert</div>
+                    <div class="notification-text">Thunderstorms expected at DFW between 3-5 PM</div>
+                    <div class="notification-time">1 hour ago</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Settings Panel -->
+    <div id="settings-panel" class="panel">
+        <div class="panel-header">
+            <h3>Settings</h3>
+            <button class="close-panel">&times;</button>
+        </div>
+        <div class="panel-content">
+            <div class="settings-section">
+                <h4>Display</h4>
+                <div class="settings-item">
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="dark-mode-setting">
+                        <span class="toggle-slider"></span>
+                    </label>
+                    <span class="settings-label">Dark Mode</span>
+                </div>
+                <div class="settings-item">
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="compact-mode-setting">
+                        <span class="toggle-slider"></span>
+                    </label>
+                    <span class="settings-label">Compact Mode</span>
+                </div>
+            </div>
+            <div class="settings-section">
+                <h4>Notifications</h4>
+                <div class="settings-item">
+                    <label class="toggle-switch">
+                        <input type="checkbox" checked>
+                        <span class="toggle-slider"></span>
+                    </label>
+                    <span class="settings-label">Flight Updates</span>
+                </div>
+                <div class="settings-item">
+                    <label class="toggle-switch">
+                        <input type="checkbox" checked>
+                        <span class="toggle-slider"></span>
+                    </label>
+                    <span class="settings-label">Weather Alerts</span>
+                </div>
+                <div class="settings-item">
+                    <label class="toggle-switch">
+                        <input type="checkbox" checked>
+                        <span class="toggle-slider"></span>
+                    </label>
+                    <span class="settings-label">System Notifications</span>
+                </div>
+            </div>
+        </div>
+        <div class="panel-footer">
+            <button class="btn-primary">Save Settings</button>
+        </div>
+    </div>
+
+    <!-- Modal for adding custom links -->
+    <div id="add-link-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h3 class="modal-title">Add Custom Link</h3>
+            <form id="add-link-form">
+                <div class="form-group">
+                    <label for="link-name">Name:</label>
+                    <input type="text" id="link-name" required maxlength="15">
+                </div>
+                <div class="form-group">
+                    <label for="link-url">URL:</label>
+                    <input type="url" id="link-url" required placeholder="https://">
+                </div>
+                <div class="form-group">
+                    <label for="link-icon">Icon:</label>
+                    <select id="link-icon">
+                        <option value="fa-link">Link</option>
+                        <option value="fa-plane">Plane</option>
+                        <option value="fa-plane-departure">Departure</option>
+                        <option value="fa-plane-arrival">Arrival</option>
+                        <option value="fa-clipboard">Clipboard</option>
+                        <option value="fa-calendar">Calendar</option>
+                        <option value="fa-user">User</option>
+                        <option value="fa-users">Users</option>
+                        <option value="fa-map">Map</option>
+                        <option value="fa-cog">Settings</option>
+                        <option value="fa-envelope">Email</option>
+                        <option value="fa-file">File</option>
+                        <option value="fa-chart-line">Chart</option>
+                        <option value="fa-clock">Clock</option>
+                        <option value="fa-book">Book</option>
+                        <option value="fa-cloud">Cloud</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn-primary">Add Link</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Context menu for custom links -->
+    <div id="context-menu" class="context-menu">
+        <div class="context-menu-item" id="edit-link">
+            <i class="fas fa-edit"></i> Edit
+        </div>
+        <div class="context-menu-item" id="delete-link">
+            <i class="fas fa-trash"></i> Delete
+        </div>
+    </div>
+
+    <!-- Modal for editing custom links -->
+    <div id="edit-link-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h3 class="modal-title">Edit Custom Link</h3>
+            <form id="edit-link-form">
+                <input type="hidden" id="edit-link-id">
+                <div class="form-group">
+                    <label for="edit-link-name">Name:</label>
+                    <input type="text" id="edit-link-name" required maxlength="15">
+                </div>
+                <div class="form-group">
+                    <label for="edit-link-url">URL:</label>
+                    <input type="url" id="edit-link-url" required placeholder="https://">
+                </div>
+                <div class="form-group">
+                    <label for="edit-link-icon">Icon:</label>
+                    <select id="edit-link-icon">
+                        <option value="fa-link">Link</option>
+                        <option value="fa-plane">Plane</option>
+                        <option value="fa-plane-departure">Departure</option>
+                        <option value="fa-plane-arrival">Arrival</option>
+                        <option value="fa-clipboard">Clipboard</option>
+                        <option value="fa-calendar">Calendar</option>
+                        <option value="fa-user">User</option>
+                        <option value="fa-users">Users</option>
+                        <option value="fa-map">Map</option>
+                        <option value="fa-cog">Settings</option>
+                        <option value="fa-envelope">Email</option>
+                        <option value="fa-file">File</option>
+                        <option value="fa-chart-line">Chart</option>
+                        <option value="fa-clock">Clock</option>
+                        <option value="fa-book">Book</option>
+                        <option value="fa-cloud">Cloud</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn-primary">Save Changes</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

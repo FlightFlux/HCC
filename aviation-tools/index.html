@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aviation Tools - Airline Staff Portal</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header class="main-header">
+            <div class="header-content">
+                <div class="header-title">
+                    <i class="fas fa-calculator"></i>
+                    <h1>Aviation Tools</h1>
+                </div>
+                <div class="header-controls">
+                    <a href="../index.html" class="back-btn">
+                        <i class="fas fa-arrow-left"></i>
+                        <span>Back to Portal</span>
+                    </a>
+                    <div class="theme-selector">
+                        <div class="theme-btn light-theme" title="Light Theme">
+                            <i class="fas fa-sun"></i>
+                        </div>
+                        <div class="theme-btn dark-theme" title="Dark Theme">
+                            <i class="fas fa-moon"></i>
+                        </div>
+                        <div class="theme-btn aa-theme" title="American Airlines Theme">
+                            <i class="fas fa-plane"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <main class="main-content">
+            <div class="tools-grid">
+                <!-- Distance Calculator -->
+                <div class="tool-card">
+                    <div class="tool-header">
+                        <i class="fas fa-route"></i>
+                        <h3>Distance Calculator</h3>
+                    </div>
+                    <div class="tool-content">
+                        <div class="input-group">
+                            <label>From Airport</label>
+                            <input type="text" id="fromAirport" placeholder="DFW" maxlength="3">
+                        </div>
+                        <div class="input-group">
+                            <label>To Airport</label>
+                            <input type="text" id="toAirport" placeholder="LAX" maxlength="3">
+                        </div>
+                        <button onclick="calculateDistance()" class="calculate-btn">
+                            <i class="fas fa-calculator"></i>
+                            Calculate Distance
+                        </button>
+                        <div class="result" id="distanceResult"></div>
+                    </div>
+                </div>
+
+                <!-- Fuel Calculator -->
+                <div class="tool-card">
+                    <div class="tool-header">
+                        <i class="fas fa-gas-pump"></i>
+                        <h3>Fuel Calculator</h3>
+                    </div>
+                    <div class="tool-content">
+                        <div class="input-group">
+                            <label>Distance (NM)</label>
+                            <input type="number" id="fuelDistance" placeholder="1000">
+                        </div>
+                        <div class="input-group">
+                            <label>Aircraft Type</label>
+                            <select id="aircraftType">
+                                <option value="737">Boeing 737</option>
+                                <option value="777">Boeing 777</option>
+                                <option value="787">Boeing 787</option>
+                                <option value="320">Airbus A320</option>
+                                <option value="321">Airbus A321</option>
+                                <option value="330">Airbus A330</option>
+                            </select>
+                        </div>
+                        <button onclick="calculateFuel()" class="calculate-btn">
+                            <i class="fas fa-calculator"></i>
+                            Calculate Fuel
+                        </button>
+                        <div class="result" id="fuelResult"></div>
+                    </div>
+                </div>
+
+                <!-- Time Calculator -->
+                <div class="tool-card">
+                    <div class="tool-header">
+                        <i class="fas fa-clock"></i>
+                        <h3>Flight Time Calculator</h3>
+                    </div>
+                    <div class="tool-content">
+                        <div class="input-group">
+                            <label>Distance (NM)</label>
+                            <input type="number" id="timeDistance" placeholder="1000">
+                        </div>
+                        <div class="input-group">
+                            <label>Average Speed (Knots)</label>
+                            <input type="number" id="avgSpeed" placeholder="450">
+                        </div>
+                        <div class="input-group">
+                            <label>Wind Component (Knots)</label>
+                            <input type="number" id="windComponent" placeholder="0">
+                        </div>
+                        <button onclick="calculateTime()" class="calculate-btn">
+                            <i class="fas fa-calculator"></i>
+                            Calculate Time
+                        </button>
+                        <div class="result" id="timeResult"></div>
+                    </div>
+                </div>
+
+                <!-- Weight & Balance -->
+                <div class="tool-card">
+                    <div class="tool-header">
+                        <i class="fas fa-balance-scale"></i>
+                        <h3>Weight & Balance</h3>
+                    </div>
+                    <div class="tool-content">
+                        <div class="input-group">
+                            <label>Empty Weight (lbs)</label>
+                            <input type="number" id="emptyWeight" placeholder="95000">
+                        </div>
+                        <div class="input-group">
+                            <label>Fuel Weight (lbs)</label>
+                            <input type="number" id="fuelWeight" placeholder="25000">
+                        </div>
+                        <div class="input-group">
+                            <label>Payload (lbs)</label>
+                            <input type="number" id="payload" placeholder="30000">
+                        </div>
+                        <button onclick="calculateWeight()" class="calculate-btn">
+                            <i class="fas fa-calculator"></i>
+                            Calculate Weight
+                        </button>
+                        <div class="result" id="weightResult"></div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Screen Testing Tool</title>
+    
+    <!-- PWA Meta Tags -->
+    <meta name="theme-color" content="#0063c6">
+    <meta name="description" content="Professional screen testing tool for developers - viewport sizes, breakpoints, and responsive design testing">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Screen Tester">
+    
+    <!-- Base64 Icon -->
+    <link rel="icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48cmVjdCB3aWR0aD0iODAiIGhlaWdodD0iNTAiIHg9IjEwIiB5PSIyNSIgZmlsbD0iIzAwNjNjNiIgcng9IjUiLz48cmVjdCB3aWR0aD0iNzAiIGhlaWdodD0iNDAiIHg9IjE1IiB5PSIzMCIgZmlsbD0id2hpdGUiIHJ4PSIzIi8+PHJlY3Qgd2lkdGg9IjIwIiBoZWlnaHQ9IjEwIiB4PSI0MCIgeT0iNDUiIGZpbGw9IiMwMDYzYzYiLz48L3N2Zz4=">
+    
+    <!-- External CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header-row">
+            <div class="logo-container">
+                <a href="../" class="back-link">
+                    <i class="fas fa-arrow-left"></i>
+                </a>
+                <i class="logo-icon fas fa-desktop"></i>
+                <div class="logo-text">Screen Tester</div>
+            </div>
+            <div class="toggle-container">
+                <div class="toggle-group">
+                    <span class="toggle-label">Dark</span>
+                    <label class="toggle-switch theme-toggle">
+                        <input type="checkbox" id="theme-toggle">
+                        <span class="toggle-slider">
+                            <i class="light-icon fas fa-sun"></i>
+                            <i class="dark-icon fas fa-moon"></i>
+                        </span>
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Stats Row -->
+        <div class="quick-stats">
+            <div class="mini-card">
+                <div class="mini-title">
+                    <i class="fas fa-mobile-alt"></i>
+                    <span>Current Device</span>
+                </div>
+                <div class="mini-value" id="current-device">Desktop</div>
+            </div>
+            <div class="mini-card">
+                <div class="mini-title">
+                    <i class="fas fa-expand-arrows-alt"></i>
+                    <span>Viewport</span>
+                </div>
+                <div class="mini-value" id="quick-viewport">Loading...</div>
+            </div>
+            <div class="mini-card">
+                <div class="mini-title">
+                    <i class="fas fa-rotate"></i>
+                    <span>Orientation</span>
+                </div>
+                <div class="mini-value" id="quick-orientation">Loading...</div>
+            </div>
+        </div>
+
+        <!-- Screen Information Card -->
+        <div class="card">
+            <div class="card-header">
+                <h2 class="card-title">
+                    <i class="fas fa-desktop"></i>
+                    Screen Information
+                </h2>
+            </div>
+            <div class="info-grid">
+                <div class="info-item">
+                    <label>Screen Resolution</label>
+                    <div class="info-value" id="screen-resolution">Loading...</div>
+                </div>
+                <div class="info-item">
+                    <label>Viewport Size</label>
+                    <div class="info-value" id="viewport-size">Loading...</div>
+                </div>
+                <div class="info-item">
+                    <label>Device Pixel Ratio</label>
+                    <div class="info-value" id="pixel-ratio">Loading...</div>
+                </div>
+                <div class="info-item">
+                    <label>Color Depth</label>
+                    <div class="info-value" id="color-depth">Loading...</div>
+                </div>
+                <div class="info-item">
+                    <label>Available Size</label>
+                    <div class="info-value" id="available-size">Loading...</div>
+                </div>
+                <div class="info-item">
+                    <label>Orientation</label>
+                    <div class="info-value" id="orientation">Loading...</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Responsive Breakpoints Card -->
+        <div class="card">
+            <div class="card-header">
+                <h2 class="card-title">
+                    <i class="fas fa-ruler-horizontal"></i>
+                    Responsive Breakpoints
+                </h2>
+            </div>
+            <div class="breakpoints-grid">
+                <div class="breakpoint-item mobile" id="mobile-bp">
+                    <div class="breakpoint-header">
+                        <i class="fas fa-mobile-alt"></i>
+                        <span class="breakpoint-name">Mobile</span>
+                        <span class="breakpoint-status" id="mobile-status">●</span>
+                    </div>
+                    <div class="breakpoint-range">&lt; 768px</div>
+                </div>
+                <div class="breakpoint-item tablet" id="tablet-bp">
+                    <div class="breakpoint-header">
+                        <i class="fas fa-tablet-alt"></i>
+                        <span class="breakpoint-name">Tablet</span>
+                        <span class="breakpoint-status" id="tablet-status">●</span>
+                    </div>
+                    <div class="breakpoint-range">768px - 1024px</div>
+                </div>
+                <div class="breakpoint-item desktop" id="desktop-bp">
+                    <div class="breakpoint-header">
+                        <i class="fas fa-desktop"></i>
+                        <span class="breakpoint-name">Desktop</span>
+                        <span class="breakpoint-status" id="desktop-status">●</span>
+                    </div>
+                    <div class="breakpoint-range">1024px - 1440px</div>
+                </div>
+                <div class="breakpoint-item large-desktop" id="large-desktop-bp">
+                    <div class="breakpoint-header">
+                        <i class="fas fa-tv"></i>
+                        <span class="breakpoint-name">Large Desktop</span>
+                        <span class="breakpoint-status" id="large-desktop-status">●</span>
+                    </div>
+                    <div class="breakpoint-range">&gt; 1440px</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Testing Tools Card -->
+        <div class="card">
+            <div class="card-header">
+                <h2 class="card-title">
+                    <i class="fas fa-tools"></i>
+                    Visual Testing Tools
+                </h2>
+            </div>
+            <div class="testing-tools">
+                <div class="tool-section">
+                    <h3><i class="fas fa-palette"></i> Color Display Test</h3>
+                    <div class="color-grid">
+                        <div class="color-box red" title="Red"></div>
+                        <div class="color-box green" title="Green"></div>
+                        <div class="color-box blue" title="Blue"></div>
+                        <div class="color-box yellow" title="Yellow"></div>
+                        <div class="color-box purple" title="Purple"></div>
+                        <div class="color-box orange" title="Orange"></div>
+                        <div class="color-box white" title="White"></div>
+                        <div class="color-box black" title="Black"></div>
+                    </div>
+                </div>
+                
+                <div class="tool-section">
+                    <h3><i class="fas fa-font"></i> Text Size Test</h3>
+                    <div class="text-samples">
+                        <p class="text-xs">Extra Small Text (12px) - Quick test sample</p>
+                        <p class="text-sm">Small Text (14px) - Quick test sample</p>
+                        <p class="text-md">Medium Text (16px) - Quick test sample</p>
+                        <p class="text-lg">Large Text (18px) - Quick test sample</p>
+                        <p class="text-xl">Extra Large Text (24px) - Quick test sample</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Real-time Tracking Card -->
+        <div class="card">
+            <div class="card-header">
+                <h2 class="card-title">
+                    <i class="fas fa-mouse-pointer"></i>
+                    Real-time Tracking
+                </h2>
+            </div>
+            <div class="tracking-info">
+                <div class="tracking-item">
+                    <label>Mouse Position</label>
+                    <div class="tracking-value" id="mouse-position">Move your mouse</div>
+                </div>
+                <div class="tracking-item">
+                    <label>Window Size</label>
+                    <div class="tracking-value" id="window-size">Loading...</div>
+                </div>
+                <div class="tracking-item">
+                    <label>Last Updated</label>
+                    <div class="tracking-value" id="last-updated">Never</div>
+                </div>
+            </div>
+            <button class="refresh-btn" id="refresh-btn">
+                <i class="fas fa-sync-alt"></i>
+                Refresh All Data
+            </button>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <p>Professional Screen Testing Tool - Works offline, no server required</p>
+            <p class="footer-links">
+                <span>Press F5 or Ctrl+R to refresh</span> • 
+                <span id="export-link" style="cursor: pointer; color: var(--primary-color);">Export Data</span>
+            </p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

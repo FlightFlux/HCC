@@ -1,0 +1,1197 @@
+:root {
+    --primary-color: #0063c6;
+    --primary-dark: #004d9e;
+    --primary-light: #e6f0ff;
+    --accent-color: #e40046;
+    --accent-dark: #b80039;
+    --accent-light: #ffe6ed;
+    --text-color: #1e293b;
+    --text-light: #64748b;
+    --text-dark: #0f172a;
+    --background-color: #f8fafc;
+    --card-color: #ffffff;
+    --card-hover: #f1f5f9;
+    --border-color: #e2e8f0;
+    --border-radius: 12px;
+    --border-radius-sm: 8px;
+    --box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+    --box-shadow-hover: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.05);
+    --transition: all 0.3s ease;
+    --success-color: #10b981;
+    --warning-color: #f59e0b;
+    --error-color: #ef4444;
+    --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+}
+
+/* Dark Mode Variables */
+.dark-mode {
+    --primary-color: #0284c7;
+    --primary-dark: #0369a1;
+    --primary-light: #0c4a6e;
+    --text-color: #f1f5f9;
+    --text-light: #94a3b8;
+    --text-dark: #e2e8f0;
+    --background-color: #0f172a;
+    --card-color: #1e293b;
+    --card-hover: #334155;
+    --border-color: #334155;
+    --box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+    --box-shadow-hover: 0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -4px rgba(0, 0, 0, 0.2);
+}
+
+/* Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: var(--font-family);
+}
+
+html {
+    font-size: 16px;
+    height: 100%;
+}
+
+body {
+    background-color: var(--background-color);
+    color: var(--text-color);
+    padding: env(safe-area-inset-top, 20px) env(safe-area-inset-right, 20px) env(safe-area-inset-bottom, 20px) env(safe-area-inset-left, 20px);
+    max-width: 100%;
+    overflow-x: hidden;
+    min-height: 100vh;
+    transition: background-color 0.3s ease;
+    line-height: 1.5;
+}
+
+.container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 10px;
+    transition: var(--transition);
+}
+
+/* Back Link Styles */
+.back-link {
+    display: inline-flex;
+    align-items: center;
+    text-decoration: none;
+    color: var(--text-light);
+    margin-right: 12px;
+    padding: 8px;
+    border-radius: var(--border-radius-sm);
+    transition: var(--transition);
+}
+
+.back-link:hover {
+    background-color: var(--card-hover);
+    color: var(--primary-color);
+}
+
+/* Header Styles */
+.header-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.logo-text {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    letter-spacing: -0.5px;
+    transition: var(--transition);
+}
+
+.logo-icon {
+    color: var(--accent-color);
+    font-size: 1.4rem;
+    transition: var(--transition);
+}
+
+/* Toggle Switches */
+.toggle-container {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.toggle-group {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.toggle-label {
+    font-size: 0.8rem;
+    color: var(--text-light);
+}
+
+.toggle-switch {
+    position: relative;
+    display: inline-block;
+    width: 44px;
+    height: 22px;
+    margin: 0;
+}
+
+.toggle-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.toggle-slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: var(--border-color);
+    transition: .4s;
+    border-radius: 34px;
+}
+
+.toggle-slider:before {
+    position: absolute;
+    content: "";
+    height: 16px;
+    width: 16px;
+    left: 4px;
+    bottom: 3px;
+    background-color: white;
+    transition: .4s;
+    border-radius: 50%;
+    z-index: 1;
+}
+
+.theme-toggle .toggle-slider {
+    background-color: #87ceeb; /* light sky blue */
+    overflow: visible;
+}
+
+.theme-toggle .toggle-slider:before {
+    background-color: white;
+    box-shadow: 0 0 2px rgba(0,0,0,0.3);
+}
+
+.theme-toggle .light-icon, 
+.theme-toggle .dark-icon {
+    position: absolute;
+    font-size: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    transition: .4s;
+    z-index: 2;
+}
+
+.theme-toggle .light-icon {
+    left: 6px;
+    color: #0063c6; /* blue departure plane */
+    opacity: 1;
+    transform: translateY(-50%) rotate(-45deg);
+}
+
+.theme-toggle .dark-icon {
+    right: 6px;
+    color: white; /* white arrival plane */
+    opacity: 0;
+    transform: translateY(-50%) rotate(45deg);
+}
+
+input:checked + .toggle-slider {
+    background-color: #1a365d; /* dark blue night sky */
+}
+
+input:focus + .toggle-slider {
+    box-shadow: 0 0 1px var(--primary-color);
+}
+
+input:checked + .toggle-slider:before {
+    transform: translateX(20px);
+}
+
+input:checked + .toggle-slider .light-icon {
+    opacity: 0;
+}
+
+input:checked + .toggle-slider .dark-icon {
+    opacity: 1;
+}
+
+/* Theme Selector */
+.theme-selector {
+    display: flex;
+    gap: 8px;
+}
+
+.theme-btn {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: 2px solid transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    color: white;
+    background-color: var(--primary-light);
+}
+
+.theme-btn:hover {
+    transform: translateY(-2px);
+}
+
+.theme-btn.active {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 2px rgba(0, 99, 198, 0.3);
+}
+
+.light-theme {
+    background-color: #87CEEB;
+    color: #0063c6;
+}
+
+.dark-theme {
+    background-color: #1a365d;
+    color: white;
+}
+
+.aa-theme {
+    background-color: #0078D2; /* American Airlines Blue */
+    color: white;
+}
+
+/* American Airlines Theme CSS Variables */
+.aa-mode {
+    --primary-color: #0078D2; /* American Airlines Blue */
+    --primary-dark: #00509B;
+    --primary-light: #E6F1F9;
+    --accent-color: #C8102E; /* American Airlines Red */
+    --accent-dark: #A7000A;
+    --text-color: #003366;
+    --text-light: #5C7C99;
+    --background-color: #F5F7FA;
+    --card-color: #FFFFFF;
+    --card-hover: #F0F4F8;
+    --border-color: #D1DCE8;
+}
+
+/* Enhanced American Airlines Theme Styling */
+.aa-mode {
+    background-image: 
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100' fill='%230078D2' fill-opacity='0.03'%3E%3Cpath d='M21,16V14L13,9V3.5A1.5,1.5,0,0,0,11.5,2h0A1.5,1.5,0,0,0,10,3.5V9L2,14v2l8-2.5V19l-2,1.5V22l3.5-1h1L13,22V20.5l-2-1.5V13.5Z'/%3E%3C/svg%3E"),
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200' viewBox='0 0 200 200' fill='%23C8102E' fill-opacity='0.02'%3E%3Cpath d='M100,0 L200,200 L0,200 Z'/%3E%3C/svg%3E");
+    background-attachment: fixed;
+}
+
+.aa-mode .header-row {
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1440' height='200' preserveAspectRatio='none' viewBox='0 0 1440 200'%3E%3Cpath fill='%230078D2' d='M0,120L80,105C160,90,320,60,480,70C640,80,800,130,960,140C1120,150,1280,120,1360,105L1440,90L1440,0L1360,0C1280,0,1120,0,960,0C800,0,640,0,480,0C320,0,160,0,80,0L0,0Z'%3E%3C/path%3E%3C/svg%3E");
+    background-color: #0057A5;
+    background-size: cover;
+    margin: -10px -10px 16px -10px;
+    padding: 15px 20px 30px 20px;
+    border-radius: 0;
+    border-bottom: 3px solid #C8102E;
+    position: relative;
+}
+
+.aa-mode .header-row::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 0;
+    right: 0;
+    height: 5px;
+    background: repeating-linear-gradient(
+        -45deg,
+        #C8102E,
+        #C8102E 10px,
+        #0078D2 10px,
+        #0078D2 20px
+    );
+    opacity: 0.6;
+}
+
+.aa-mode .logo-text {
+    color: white;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+}
+
+.aa-mode .logo-icon {
+    color: white;
+}
+
+.aa-mode .toggle-label {
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.aa-mode .mini-card {
+    background-image: linear-gradient(to bottom right, rgba(0, 120, 210, 0.05) 0%, rgba(0, 120, 210, 0) 100%);
+    border-left: 3px solid #0078D2;
+}
+
+.aa-mode .card {
+    background-image: linear-gradient(to bottom right, rgba(0, 120, 210, 0.05) 0%, rgba(0, 120, 210, 0) 100%);
+}
+
+.aa-mode .card-header {
+    border-bottom: 2px solid #C8102E;
+}
+
+.aa-mode .mini-title i,
+.aa-mode .card-title i {
+    color: #C8102E;
+}
+
+.aa-mode button[type="submit"] {
+    background-color: #0078D2;
+    background-image: linear-gradient(to bottom, #0078D2, #0057A5);
+}
+
+.aa-mode button[type="submit"]:hover {
+    background-color: #00509B;
+    background-image: linear-gradient(to bottom, #0057A5, #00509B);
+}
+
+.aa-mode .link-item {
+    background-color: rgba(0, 120, 210, 0.08);
+    border: 1px solid rgba(0, 120, 210, 0.2);
+    transition: all 0.3s ease;
+}
+
+.aa-mode .link-item:hover {
+    background-color: #0078D2;
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 120, 210, 0.2);
+}
+
+/* Aviation-themed elements */
+.aa-mode .time-display {
+    background-image: 
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100' fill-opacity='0.05'%3E%3Cpath fill='%230078D2' d='M50 0 L100 100 L0 100 Z'/%3E%3C/svg%3E"),
+        linear-gradient(to bottom right, #ffffff, #f7faff);
+    background-size: 40px, cover;
+    border: 1px solid #D1DCE8;
+    border-bottom: 3px solid #0078D2;
+    position: relative;
+    box-shadow: 0 4px 15px rgba(0, 120, 210, 0.1);
+}
+
+/* Airport runway-inspired time display */
+.aa-mode .time-display::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60%;
+    height: 100%;
+    background: repeating-linear-gradient(
+        90deg,
+        transparent,
+        transparent 4px,
+        rgba(0, 120, 210, 0.1) 4px,
+        rgba(0, 120, 210, 0.1) 8px
+    );
+    z-index: 0;
+    opacity: 0.5;
+}
+
+.aa-mode .time-block {
+    position: relative;
+    z-index: 1;
+}
+
+.aa-mode .time-label {
+    color: #0078D2;
+    font-weight: 700;
+}
+
+/* Aviation themed cards */
+.aa-mode .mini-card {
+    position: relative;
+    overflow: hidden;
+}
+
+.aa-mode .mini-card::after {
+    content: '';
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    width: 40px;
+    height: 40px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%230078D2' opacity='0.04'%3E%3Cpath d='M12,2.5L2,22l10-7l10,7L12,2.5z'/%3E%3C/svg%3E");
+    background-size: contain;
+    background-repeat: no-repeat;
+    pointer-events: none;
+}
+
+/* Animated runway lights for flight tracker */
+.aa-mode #flight-tracker-card {
+    position: relative;
+    overflow: hidden;
+}
+
+.aa-mode #flight-tracker-card::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(to right,
+        #C8102E 0%, #C8102E 10%,
+        transparent 10%, transparent 20%,
+        #C8102E 20%, #C8102E 30%,
+        transparent 30%, transparent 40%,
+        #C8102E 40%, #C8102E 50%,
+        transparent 50%, transparent 60%,
+        #C8102E 60%, #C8102E 70%,
+        transparent 70%, transparent 80%,
+        #C8102E 80%, #C8102E 90%,
+        transparent 90%, transparent 100%
+    );
+    animation: runway-lights 4s infinite linear;
+}
+
+@keyframes runway-lights {
+    0% { opacity: 0.2; }
+    50% { opacity: 1; }
+    100% { opacity: 0.2; }
+}
+
+/* Animated planes */
+@keyframes plane-fly-1 {
+    0% { transform: translateX(-50px) translateY(0); opacity: 0; }
+    10% { opacity: 1; }
+    90% { opacity: 1; }
+    100% { transform: translateX(150vw) translateY(-20px); opacity: 0; }
+}
+
+@keyframes plane-fly-2 {
+    0% { transform: translateX(-50px) translateY(50px); opacity: 0; }
+    10% { opacity: 0.7; }
+    90% { opacity: 0.7; }
+    100% { transform: translateX(120vw) translateY(0); opacity: 0; }
+}
+
+@keyframes plane-fly-3 {
+    0% { transform: translateX(100vw) translateY(100px); opacity: 0; }
+    10% { opacity: 0.5; }
+    90% { opacity: 0.5; }
+    100% { transform: translateX(-50px) translateY(150px); opacity: 0; }
+}
+
+.aa-mode::before,
+.aa-mode::after {
+    content: '';
+    position: fixed;
+    width: 30px;
+    height: 30px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%230078D2' opacity='0.3'%3E%3Cpath d='M21,16V14L13,9V3.5A1.5,1.5,0,0,0,11.5,2h0A1.5,1.5,0,0,0,10,3.5V9L2,14v2l8-2.5V19l-2,1.5V22l3.5-1h1L13,22V20.5l-2-1.5V13.5Z'/%3E%3C/svg%3E");
+    background-size: contain;
+    background-repeat: no-repeat;
+    z-index: -1;
+    pointer-events: none;
+}
+
+.aa-mode::before {
+    top: 20%;
+    left: 0;
+    animation: plane-fly-1 25s linear infinite;
+}
+
+.aa-mode::after {
+    top: 40%;
+    left: 0;
+    animation: plane-fly-2 40s linear infinite;
+    animation-delay: 10s;
+}
+
+/* Add a third plane flying in opposite direction */
+.aa-mode .container::before {
+    content: '';
+    position: fixed;
+    top: 70%;
+    right: 0;
+    width: 25px;
+    height: 25px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23C8102E' opacity='0.15'%3E%3Cpath d='M21,16V14L13,9V3.5A1.5,1.5,0,0,0,11.5,2h0A1.5,1.5,0,0,0,10,3.5V9L2,14v2l8-2.5V19l-2,1.5V22l3.5-1h1L13,22V20.5l-2-1.5V13.5Z'/%3E%3C/svg%3E");
+    background-size: contain;
+    background-repeat: no-repeat;
+    transform: scaleX(-1);
+    animation: plane-fly-3 35s linear infinite;
+    z-index: -1;
+    pointer-events: none;
+}
+
+/* Time Display */
+.time-display {
+    background-color: var(--card-color);
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    padding: 16px;
+    margin-bottom: 16px;
+    border: 1px solid var(--border-color);
+    display: flex;
+    justify-content: space-between;
+}
+
+.time-zone-container {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.time-block {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.time-block.utc {
+    align-items: flex-end;
+}
+
+.time-label {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--primary-color);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.time-value {
+    font-weight: 600;
+    font-size: 1.1rem;
+}
+
+.date-value {
+    font-size: 0.9rem;
+    color: var(--text-light);
+}
+
+/* Mini Cards Row */
+.mini-cards-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    margin-bottom: 16px;
+}
+
+.mini-card {
+    background-color: var(--card-color);
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    border: 1px solid var(--border-color);
+    padding: 12px;
+    text-align: center;
+    transition: var(--transition);
+}
+
+.mini-card:hover {
+    box-shadow: var(--box-shadow-hover);
+    transform: translateY(-2px);
+}
+
+.mini-icon {
+    color: var(--primary-color);
+    font-size: 1.2rem;
+    margin-bottom: 6px;
+}
+
+.mini-title {
+    font-size: 0.75rem;
+    color: var(--text-light);
+    margin-bottom: 4px;
+}
+
+.mini-value {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-color);
+}
+
+/* Cards */
+.card {
+    background-color: var(--card-color);
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    border: 1px solid var(--border-color);
+    transition: var(--transition);
+    overflow: hidden;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.card:hover {
+    box-shadow: var(--box-shadow-hover);
+    transform: translateY(-2px);
+}
+
+.card-header {
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.card-title {
+    font-size: 1.2rem;
+    color: var(--primary-color);
+    display: flex;
+    align-items: center;
+    font-weight: 600;
+    gap: 10px;
+    margin: 0;
+}
+
+.card-title i {
+    color: var(--accent-color);
+}
+
+.add-link-btn {
+    background: none;
+    border: 1px solid var(--border-color);
+    padding: 6px 8px;
+    border-radius: var(--border-radius-sm);
+    color: var(--text-light);
+    cursor: pointer;
+    transition: var(--transition);
+    font-size: 0.8rem;
+}
+
+.add-link-btn:hover {
+    background-color: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
+}
+
+/* Form Elements */
+.form-group {
+    margin-bottom: 12px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 4px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--text-color);
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+input, select, button {
+    padding: 10px 14px;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-sm);
+    font-size: 0.95rem;
+    transition: var(--transition);
+    background-color: var(--card-color);
+    color: var(--text-color);
+}
+
+input::placeholder {
+    color: var(--text-light);
+}
+
+input:focus, select:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.2);
+}
+
+.dark-mode input:focus, .dark-mode select:focus {
+    box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.4);
+}
+
+button {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap;
+    gap: 6px;
+}
+
+button:hover {
+    background-color: var(--primary-dark);
+    transform: translateY(-1px);
+}
+
+button:active {
+    transform: translateY(0);
+}
+
+/* Quick Links */
+.links-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+}
+
+.link-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--primary-light);
+    color: var(--primary-color);
+    text-decoration: none;
+    padding: 16px 8px;
+    border-radius: var(--border-radius);
+    text-align: center;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: var(--transition);
+    height: 100%;
+    border: 1px solid rgba(2, 132, 199, 0.1);
+    gap: 10px;
+    cursor: pointer;
+}
+
+.link-item i {
+    font-size: 1.5rem;
+}
+
+.link-item:hover {
+    background-color: var(--primary-color);
+    color: white;
+    transform: translateY(-2px);
+}
+
+.link-item:active {
+    transform: translateY(0);
+}
+
+.dark-mode .link-item {
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Calculator Tabs */
+.calculator-tabs {
+    display: flex;
+    margin-bottom: 16px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.calculator-tab {
+    flex: 1;
+    padding: 8px 12px;
+    background: none;
+    border: none;
+    border-bottom: 2px solid transparent;
+    color: var(--text-light);
+    cursor: pointer;
+    transition: var(--transition);
+    font-size: 0.9rem;
+}
+
+.calculator-tab.active {
+    color: var(--primary-color);
+    border-bottom-color: var(--primary-color);
+}
+
+.calculator-tab:hover {
+    color: var(--primary-color);
+}
+
+.calculator-content {
+    display: none;
+}
+
+.calculator-content.active {
+    display: block;
+}
+
+.result-display {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background-color: var(--background-color);
+    border-radius: var(--border-radius-sm);
+    margin-top: 12px;
+}
+
+.result-label {
+    font-size: 0.9rem;
+    color: var(--text-light);
+}
+
+.result-value {
+    font-weight: 600;
+    color: var(--primary-color);
+}
+
+/* Flight Status Display */
+.flight-status {
+    display: none;
+    margin-top: 16px;
+    padding: 16px;
+    background-color: var(--card-color);
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    border: 1px solid var(--border-color);
+    animation: fadeIn 0.3s ease;
+}
+
+.flight-status.show {
+    display: block;
+}
+
+/* Airport Info Display */
+.airport-info {
+    display: none;
+    margin-top: 16px;
+    padding: 16px;
+    background-color: var(--card-color);
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    border: 1px solid var(--border-color);
+    animation: fadeIn 0.3s ease;
+}
+
+.airport-info.show {
+    display: block;
+}
+
+/* Panel Styles */
+.panel-buttons {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    z-index: 1000;
+}
+
+.panel-btn {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: var(--box-shadow);
+    transition: var(--transition);
+}
+
+.panel-btn:hover {
+    background-color: var(--primary-dark);
+    transform: translateY(-2px);
+}
+
+.panel {
+    position: fixed;
+    top: 0;
+    right: -350px;
+    width: 350px;
+    height: 100vh;
+    background-color: var(--card-color);
+    box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1);
+    z-index: 1001;
+    transition: right 0.3s ease;
+    overflow-y: auto;
+}
+
+.panel.open {
+    right: 0;
+}
+
+.panel-header {
+    padding: 20px;
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.panel-header h3 {
+    margin: 0;
+    color: var(--primary-color);
+}
+
+.close-panel {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: var(--text-light);
+    cursor: pointer;
+    padding: 0;
+    width: auto;
+    height: auto;
+}
+
+.close-panel:hover {
+    color: var(--primary-color);
+}
+
+.panel-content {
+    padding: 20px;
+}
+
+.panel-footer {
+    padding: 20px;
+    border-top: 1px solid var(--border-color);
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: var(--border-radius-sm);
+    cursor: pointer;
+    font-weight: 600;
+    transition: var(--transition);
+}
+
+.btn-primary:hover {
+    background-color: var(--primary-dark);
+}
+
+/* Notification Styles */
+.notification-item {
+    display: flex;
+    gap: 12px;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.notification-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: var(--primary-light);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--primary-color);
+}
+
+.notification-content {
+    flex: 1;
+}
+
+.notification-title {
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+
+.notification-text {
+    font-size: 0.9rem;
+    color: var(--text-light);
+    margin-bottom: 4px;
+}
+
+.notification-time {
+    font-size: 0.8rem;
+    color: var(--text-light);
+}
+
+/* Settings Styles */
+.settings-section {
+    margin-bottom: 20px;
+}
+
+.settings-section h4 {
+    margin-bottom: 12px;
+    color: var(--primary-color);
+}
+
+.settings-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.settings-label {
+    font-size: 0.9rem;
+}
+
+/* Modal Styles */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1002;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+    background-color: var(--card-color);
+    margin: 10% auto;
+    padding: 20px;
+    border-radius: var(--border-radius);
+    width: 90%;
+    max-width: 400px;
+    position: relative;
+}
+
+.close-modal {
+    position: absolute;
+    right: 15px;
+    top: 15px;
+    font-size: 1.5rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--text-light);
+}
+
+.close-modal:hover {
+    color: var(--primary-color);
+}
+
+.modal-title {
+    margin-bottom: 20px;
+    color: var(--primary-color);
+}
+
+/* Context Menu */
+.context-menu {
+    position: fixed;
+    background-color: var(--card-color);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-sm);
+    box-shadow: var(--box-shadow);
+    z-index: 1003;
+    display: none;
+}
+
+.context-menu-item {
+    padding: 10px 15px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.9rem;
+}
+
+.context-menu-item:hover {
+    background-color: var(--card-hover);
+}
+
+/* Notification Toast */
+.notification {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background-color: var(--success-color);
+    color: white;
+    padding: 12px 20px;
+    border-radius: var(--border-radius);
+    display: none;
+    z-index: 1004;
+    animation: slideIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideIn {
+    from { transform: translateX(100%); }
+    to { transform: translateX(0); }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        padding: 5px;
+    }
+    
+    .header-row {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 12px;
+    }
+    
+    .toggle-container {
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 12px;
+    }
+    
+    .theme-selector {
+        order: -1;
+        justify-content: center;
+    }
+    
+    .mini-cards-row {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .links-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+    
+    .panel {
+        width: 100%;
+        right: -100%;
+    }
+    
+    .panel-buttons {
+        bottom: 10px;
+        right: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .mini-cards-row {
+        grid-template-columns: 1fr;
+    }
+    
+    .links-container {
+        grid-template-columns: 1fr;
+    }
+    
+    .calculator-tabs {
+        flex-direction: column;
+    }
+    
+    .time-zone-container {
+        flex-direction: column;
+        gap: 12px;
+    }
+}
